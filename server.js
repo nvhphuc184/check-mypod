@@ -1,9 +1,5 @@
-import express from 'express';
 import { chromium } from 'playwright';
 import axios from 'axios';
-
-const app = express();
-const PORT = process.env.PORT || 3000;
 
 const URL = 'https://mypod.io.vn.sai-url/';
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -21,22 +17,15 @@ async function checkWebsite() {
 
   try {
     await page.goto(URL, { timeout: 15000 });
-    return `[${new Date().toISOString()}] ✅ OK`;
+    console.log(`[${new Date().toISOString()}] ✅ OK`);
   } catch (err) {
     const errorMsg = `[${new Date().toISOString()}] ❌ ERROR: ${err.message}`;
     await sendTelegramMessage(`❌ Lỗi truy cập ${URL} lúc ${new Date().toLocaleString()}\nError: ${err.message}`);
-    return errorMsg;
+    console.error(errorMsg);
   } finally {
     await browser.close();
   }
 }
 
-// Endpoint cho EasyCron gọi
-app.get('/check', async (req, res) => {
-  const result = await checkWebsite();
-  res.send(result);
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// 👇 Đây là phần thêm vào để GitHub Action chạy trực tiếp
+checkWebsite();
