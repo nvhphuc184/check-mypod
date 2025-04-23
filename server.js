@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 import axios from 'axios';
 
-const URL = 'https://mypod.io.vn.sai-url/';
+const URL = 'https://mypod.io.vn/';
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
