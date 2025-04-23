@@ -4,7 +4,8 @@
  "main": "check-website.js",
  "type": "module",
  "scripts": {
-   "start": "node check-website.js"
+   "start": "node server.js",
+   "postinstall": "npx playwright install --with-deps"
  },
  "dependencies": {
    "axios": "^1.6.0",
