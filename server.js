@@ -7,9 +7,6 @@ const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 // Danh sách các URL cần kiểm tra
 const URLS = [
   'https://mypod.io.vn/',
-  'https://example.com/',
-  'https://github.com/',
-  'https://abc.sai-url.vn/', // thử 1 cái sai để test
 ];
 
 async function sendTelegramMessage(message) {
@@ -23,11 +20,15 @@ async function checkWebsite(url) {
   const page = await context.newPage();
 
   try {
+    console.log(`🧭 Đang kiểm tra: ${url}`);
     await page.goto(url, { timeout: 15000 });
     console.log(`[${new Date().toISOString()}] ✅ OK: ${url}`);
   } catch (err) {
     const errorMsg = `[${new Date().toISOString()}] ❌ ERROR on ${url}: ${err.message}`;
-    await sendTelegramMessage(`❌ Lỗi truy cập ${url} lúc ${new Date().toLocaleString()}\nError: ${err.message}`);
+
+    const vnTime = new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+    await sendTelegramMessage(`❌ Lỗi truy cập ${url} lúc ${vnTime}\nError: ${err.message}`);
+
     console.error(errorMsg);
   } finally {
     await browser.close();
