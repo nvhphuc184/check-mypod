@@ -5,7 +5,7 @@ import axios from 'axios';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const URL = 'https://mypod.io.vn/';
+const URL = 'https://mypod.io.vn.sai-url/';
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
